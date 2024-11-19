@@ -1,0 +1,25 @@
+# # Starter pipeline
+# # Start with a minimal pipeline that you can customize to build and deploy your code.
+# # Add steps that build, run tests, deploy, and more:
+# # https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+  tags:
+    include:
+      - '*'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: mirror-git-repository-vsts-task@1
+  inputs:
+    sourceGitRepositoryUri: '$(SOURCE_REPO)'
+    sourceGitRepositoryPersonalAccessToken: '$(GITHUB_PAT)'
+    destinationGitRepositoryUri: '$(DEST_REPO)'
+    destinationGitRepositoryPersonalAccessToken: '$(AZURE_PAT)'
